@@ -34,17 +34,33 @@ def make_chains(text_string):
 
         >>> chains[('hi', 'there')]
         ['mary', 'juanita']
-        
+
         >>> chains[('there','juanita')]
         [None]
     """
 
     chains = {}
 
-    # your code goes here
+    words = text_string.split()
+    sam = words[-3:]
+    words = words[:-3]
+
+    for item in range(len(words) - 3):
+
+        bi_gram = words[item], words[item + 1]  #(Would, you)
+        # value = []
+        # chains[bi_gram] = value  # erasing old value, replacing it with []
+        value = chains.get(bi_gram, [])
+        value.append(words[item + 2])
+        # value = chains.get(bi_gram, [])
+        chains[bi_gram] = value
+
+    print(chains)
+
+    for bi_grams, values in sorted(chains.items()):
+        chains = chains
 
     return chains
-
 
 def make_text(chains):
     """Return text from chains."""
@@ -56,16 +72,15 @@ def make_text(chains):
     return " ".join(words)
 
 
-# input_path = "green-eggs.txt"
+input_path = "green-eggs.txt"
 
 # # Open the file and turn it into one long string
-# input_text = open_and_read_file(input_path)
+input_text = open_and_read_file(input_path)
 
 # # Get a Markov chain
-# chains = make_chains(input_text)
+chains = make_chains(input_text)
 
 # # Produce random text
 # random_text = make_text(chains)
 
-# print(random_text)
-print(open_and_read_file("green-eggs.txt"))
+print(chains)
