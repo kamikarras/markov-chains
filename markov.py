@@ -55,21 +55,34 @@ def make_chains(text_string):
         # value = chains.get(bi_gram, [])
         chains[bi_gram] = value
 
-    print(chains)
+    # print(chains)
 
     for bi_grams, values in sorted(chains.items()):
         chains = chains
 
     return chains
 
+
 def make_text(chains):
     """Return text from chains."""
 
-    words = []
+    # words = []
+    # key_list = [chains.keys()]
+    # values_list = [chains.values()]
+    # for key in key_list:
+    #     random_word = choice(values_list)
+    # # print(f"{key} {random_word}")
+    # print(key_list)
 
-    # your code goes here
-
-    return " ".join(words)
+    # return " ".join(words)
+    for keys, values in chains.items():
+        for key in keys:
+            random_word = choice(values)
+        # tog
+        # print(values)
+        # return (f" {random_word} ").join(keys)
+        # print(keys)
+        return " ".join(random_word)
 
 
 input_path = "green-eggs.txt"
@@ -81,6 +94,6 @@ input_text = open_and_read_file(input_path)
 chains = make_chains(input_text)
 
 # # Produce random text
-# random_text = make_text(chains)
+random_text = make_text(chains)
 
-print(chains)
+print(random_text)
