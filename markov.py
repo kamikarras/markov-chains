@@ -47,18 +47,10 @@ def make_chains(text_string):
 
     for item in range(len(words) - 3):
 
-        bi_gram = words[item], words[item + 1]  #(Would, you)
-        # value = []
-        # chains[bi_gram] = value  # erasing old value, replacing it with []
+        bi_gram = words[item], words[item + 1]
         value = chains.get(bi_gram, [])
         value.append(words[item + 2])
-        # value = chains.get(bi_gram, [])
         chains[bi_gram] = value
-
-    # print(chains)
-
-    for bi_grams, values in sorted(chains.items()):
-        chains = chains
 
     return chains
 
@@ -66,26 +58,22 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    # words = []
-    # key_list = [chains.keys()]
-    # values_list = [chains.values()]
-    # for key in key_list:
-    #     random_word = choice(values_list)
-    # # print(f"{key} {random_word}")
-    # print(key_list)
+    key_list = list(chains.keys())
+    first_key = choice(key_list)
 
-    # return " ".join(words)
-    for keys, values in chains.items():
-        for key in keys:
-            random_word = choice(values)
-        # tog
-        # print(values)
-        # return (f" {random_word} ").join(keys)
-        # print(keys)
-        return " ".join(random_word)
+    words = list(first_key)
+
+    while first_key in chains and len(words) < 40:
+
+        rand_word = choice(chains[first_key])
+        words.append(rand_word)
+
+        first_key = (first_key[1], rand_word)
+
+    return ' '.join(words).capitalize()
 
 
-input_path = "green-eggs.txt"
+input_path = "gettysburg.txt"
 
 # # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
